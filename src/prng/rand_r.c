@@ -1,3 +1,4 @@
+#include <c2go.h>
 #include <stdlib.h>
 
 static unsigned temper(unsigned x)
@@ -9,7 +10,7 @@ static unsigned temper(unsigned x)
 	return x;
 }
 
-int rand_r(unsigned *seed)
+c2go_extern int rand_r(unsigned *seed)
 {
 	return temper(*seed = *seed * 1103515245 + 12345)/2;
 }

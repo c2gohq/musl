@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <stdlib.h>
 #include <ctype.h>
 
-long long atoll(const char *s)
+c2go_extern long long atoll(const char *s)
 {
 	long long n=0;
 	int neg=0;

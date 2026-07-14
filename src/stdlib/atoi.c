@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <stdlib.h>
 #include <ctype.h>
 
-int atoi(const char *s)
+c2go_extern int atoi(const char *s)
 {
 	int n=0, neg=0;
 	while (isspace(*s)) s++;

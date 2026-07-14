@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <stdlib.h>
 
-void *bsearch(const void *key, const void *base, size_t nel, size_t width, int (*cmp)(const void *, const void *))
+c2go_extern void *bsearch(const void *key, const void *base, size_t nel, size_t width, int (*cmp)(const void *, const void *))
 {
 	void *try;
 	int sign;

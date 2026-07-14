@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <stdlib.h>
 
-long long llabs(long long a)
+c2go_extern long long llabs(long long a)
 {
 	return a>0 ? a : -a;
 }

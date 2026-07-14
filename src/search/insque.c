@@ -1,3 +1,4 @@
+#include <c2go.h>
 #include <search.h>
 
 struct node {
@@ -5,7 +6,7 @@ struct node {
 	struct node *prev;
 };
 
-void insque(void *element, void *pred)
+c2go_extern void insque(void *element, void *pred)
 {
 	struct node *e = element;
 	struct node *p = pred;
@@ -21,7 +22,7 @@ void insque(void *element, void *pred)
 		e->next->prev = e;
 }
 
-void remque(void *element)
+c2go_extern void remque(void *element)
 {
 	struct node *e = element;
 

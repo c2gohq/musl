@@ -1,3 +1,4 @@
+#include <c2go.h>
 #include <string.h>
 #include <stdint.h>
 #include <limits.h>
@@ -7,7 +8,7 @@
 #define HIGHS (ONES * (UCHAR_MAX/2+1))
 #define HASZERO(x) ((x)-ONES & ~(x) & HIGHS)
 
-size_t strlen(const char *s)
+c2go_extern size_t strlen(const char *s)
 {
 	const char *a = s;
 #ifdef __GNUC__

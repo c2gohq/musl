@@ -1,7 +1,8 @@
 #define _GNU_SOURCE
+#include <c2go.h>
 #include <string.h>
 
-char *strsep(char **str, const char *sep)
+c2go_extern char *strsep(char **str, const char *sep)
 {
 	char *s = *str, *end;
 	if (!s) return NULL;

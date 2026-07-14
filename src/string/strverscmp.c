@@ -1,8 +1,9 @@
 #define _GNU_SOURCE
+#include <c2go.h>
 #include <ctype.h>
 #include <string.h>
 
-int strverscmp(const char *l0, const char *r0)
+c2go_extern int strverscmp(const char *l0, const char *r0)
 {
 	const unsigned char *l = (const void *)l0;
 	const unsigned char *r = (const void *)r0;

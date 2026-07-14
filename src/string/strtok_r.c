@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <string.h>
 
-char *strtok_r(char *restrict s, const char *restrict sep, char **restrict p)
+c2go_extern char *strtok_r(char *restrict s, const char *restrict sep, char **restrict p)
 {
 	if (!s && !(s = *p)) return NULL;
 	s += strspn(s, sep);

@@ -1,7 +1,9 @@
 #define _GNU_SOURCE
+#include <c2go.h>
 #include <string.h>
+#include <strings.h>
 
-char *strcasestr(const char *h, const char *n)
+c2go_extern char *strcasestr(const char *h, const char *n)
 {
 	size_t l = strlen(n);
 	if (!l) return (char *)h;

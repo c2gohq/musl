@@ -1,3 +1,4 @@
+#include <c2go.h>
 #include <string.h>
 #include <stdint.h>
 #include <limits.h>
@@ -7,7 +8,7 @@
 #define HIGHS (ONES * (UCHAR_MAX/2+1))
 #define HASZERO(x) ((x)-ONES & ~(x) & HIGHS)
 
-void *memccpy(void *restrict dest, const void *restrict src, int c, size_t n)
+c2go_extern void *memccpy(void *restrict dest, const void *restrict src, int c, size_t n)
 {
 	unsigned char *d = dest;
 	const unsigned char *s = src;

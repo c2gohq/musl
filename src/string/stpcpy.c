@@ -1,3 +1,4 @@
+#include <c2go.h>
 #include <string.h>
 #include <stdint.h>
 #include <limits.h>
@@ -7,7 +8,7 @@
 #define HIGHS (ONES * (UCHAR_MAX/2+1))
 #define HASZERO(x) ((x)-ONES & ~(x) & HIGHS)
 
-char *__stpcpy(char *restrict d, const char *restrict s)
+c2go_extern char *stpcpy(char *restrict d, const char *restrict s)
 {
 #ifdef __GNUC__
 	typedef size_t __attribute__((__may_alias__)) word;
@@ -25,5 +26,3 @@ char *__stpcpy(char *restrict d, const char *restrict s)
 
 	return d;
 }
-
-weak_alias(__stpcpy, stpcpy);

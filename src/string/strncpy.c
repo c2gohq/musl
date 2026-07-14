@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <string.h>
 
-char *strncpy(char *restrict d, const char *restrict s, size_t n)
+c2go_extern char *strncpy(char *restrict d, const char *restrict s, size_t n)
 {
-	__stpncpy(d, s, n);
+	stpncpy(d, s, n);
 	return d;
 }

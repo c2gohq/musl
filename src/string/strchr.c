@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <string.h>
 
-char *strchr(const char *s, int c)
+c2go_extern char *strchr(const char *s, int c)
 {
-	char *r = __strchrnul(s, c);
+	char *r = strchrnul(s, c);
 	return *(unsigned char *)r == (unsigned char)c ? r : 0;
 }

@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <string.h>
 
-char *strcpy(char *restrict dest, const char *restrict src)
+c2go_extern char *strcpy(char *restrict dest, const char *restrict src)
 {
-	__stpcpy(dest, src);
+	stpcpy(dest, src);
 	return dest;
 }

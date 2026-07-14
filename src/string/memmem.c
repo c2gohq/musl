@@ -1,4 +1,5 @@
 #define _GNU_SOURCE
+#include <c2go.h>
 #include <string.h>
 #include <stdint.h>
 
@@ -126,7 +127,7 @@ static char *twoway_memmem(const unsigned char *h, const unsigned char *z, const
 	}
 }
 
-void *memmem(const void *h0, size_t k, const void *n0, size_t l)
+c2go_extern void *memmem(const void *h0, size_t k, const void *n0, size_t l)
 {
 	const unsigned char *h = h0, *n = n0;
 

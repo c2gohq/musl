@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <unistd.h>
 
-void swab(const void *restrict _src, void *restrict _dest, ssize_t n)
+c2go_extern void swab(const void *restrict _src, void *restrict _dest, ssize_t n)
 {
 	const char *src = _src;
 	char *dest = _dest;

@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <string.h>
 
-char *strtok(char *restrict s, const char *restrict sep)
+c2go_extern char *strtok(char *restrict s, const char *restrict sep)
 {
 	static char *p;
 	if (!s && !(s = p)) return NULL;

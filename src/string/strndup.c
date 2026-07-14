@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <stdlib.h>
 #include <string.h>
 
-char *strndup(const char *s, size_t n)
+c2go_extern char *strndup(const char *s, size_t n)
 {
 	size_t l = strnlen(s, n);
 	char *d = malloc(l+1);

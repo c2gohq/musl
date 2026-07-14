@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-wchar_t *wcschr(const wchar_t *s, wchar_t c)
+c2go_extern wchar_t *wcschr(const wchar_t *s, wchar_t c)
 {
 	if (!c) return (wchar_t *)s + wcslen(s);
 	for (; *s && *s != c; s++);

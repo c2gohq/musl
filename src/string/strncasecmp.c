@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <strings.h>
 #include <ctype.h>
 
-int strncasecmp(const char *_l, const char *_r, size_t n)
+c2go_extern int strncasecmp(const char *_l, const char *_r, size_t n)
 {
 	const unsigned char *l=(void *)_l, *r=(void *)_r;
 	if (!n--) return 0;
@@ -9,9 +10,7 @@ int strncasecmp(const char *_l, const char *_r, size_t n)
 	return tolower(*l) - tolower(*r);
 }
 
-int __strncasecmp_l(const char *l, const char *r, size_t n, locale_t loc)
+c2go_extern int strncasecmp_l(const char *l, const char *r, size_t n, locale_t loc)
 {
 	return strncasecmp(l, r, n);
 }
-
-weak_alias(__strncasecmp_l, strncasecmp_l);

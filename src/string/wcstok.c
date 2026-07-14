@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-wchar_t *wcstok(wchar_t *restrict s, const wchar_t *restrict sep, wchar_t **restrict p)
+c2go_extern wchar_t *wcstok(wchar_t *restrict s, const wchar_t *restrict sep, wchar_t **restrict p)
 {
 	if (!s && !(s = *p)) return NULL;
 	s += wcsspn(s, sep);

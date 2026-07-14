@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-wchar_t *wcpcpy(wchar_t *restrict d, const wchar_t *restrict s)
+c2go_extern wchar_t *wcpcpy(wchar_t *restrict d, const wchar_t *restrict s)
 {
 	return wcscpy(d, s) + wcslen(s);
 }

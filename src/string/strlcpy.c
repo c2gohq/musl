@@ -1,4 +1,5 @@
 #define _BSD_SOURCE
+#include <c2go.h>
 #include <string.h>
 #include <stdint.h>
 #include <limits.h>
@@ -8,7 +9,7 @@
 #define HIGHS (ONES * (UCHAR_MAX/2+1))
 #define HASZERO(x) ((x)-ONES & ~(x) & HIGHS)
 
-size_t strlcpy(char *d, const char *s, size_t n)
+c2go_extern size_t strlcpy(char *d, const char *s, size_t n)
 {
 	char *d0 = d;
 	size_t *wd;

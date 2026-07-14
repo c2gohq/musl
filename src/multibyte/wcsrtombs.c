@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-size_t wcsrtombs(char *restrict s, const wchar_t **restrict ws, size_t n, mbstate_t *restrict st)
+c2go_extern size_t wcsrtombs(char *restrict s, const wchar_t **restrict ws, size_t n, mbstate_t *restrict st)
 {
 	const wchar_t *ws2;
 	char buf[4];

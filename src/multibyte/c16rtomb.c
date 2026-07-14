@@ -1,8 +1,9 @@
+#include <c2go.h>
 #include <uchar.h>
 #include <errno.h>
 #include <wchar.h>
 
-size_t c16rtomb(char *restrict s, char16_t c16, mbstate_t *restrict ps)
+c2go_extern size_t c16rtomb(char *restrict s, char16_t c16, mbstate_t *restrict ps)
 {
 	static unsigned internal_state;
 	if (!ps) ps = (void *)&internal_state;

@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-int mbsinit(const mbstate_t *st)
+c2go_extern int mbsinit(const mbstate_t *st)
 {
 	return !st || !*(unsigned *)st;
 }

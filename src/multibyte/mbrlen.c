@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-size_t mbrlen(const char *restrict s, size_t n, mbstate_t *restrict st)
+c2go_extern size_t mbrlen(const char *restrict s, size_t n, mbstate_t *restrict st)
 {
 	static unsigned internal;
 	return mbrtowc(0, s, n, st ? st : (mbstate_t *)&internal);

@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <wchar.h>
 
-size_t mbsnrtowcs(wchar_t *restrict wcs, const char **restrict src, size_t n, size_t wn, mbstate_t *restrict st)
+c2go_extern size_t mbsnrtowcs(wchar_t *restrict wcs, const char **restrict src, size_t n, size_t wn, mbstate_t *restrict st)
 {
 	static unsigned internal_state;
 	size_t l, cnt=0, n2;

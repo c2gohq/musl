@@ -1,6 +1,7 @@
+#include <c2go.h>
 #include <stdlib.h>
 
-int mblen(const char *s, size_t n)
+c2go_extern int mblen(const char *s, size_t n)
 {
 	return mbtowc(0, s, n);
 }

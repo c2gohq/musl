@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <ctype.h>
 #undef isascii
 
-int isascii(int c)
+c2go_extern int isascii(int c)
 {
 	return !(c&~0x7f);
 }

@@ -1,13 +1,13 @@
+#include <c2go.h>
 #include <ctype.h>
 
-int ispunct(int c)
+c2go_extern int ispunct(int c)
 {
 	return isgraph(c) && !isalnum(c);
 }
 
-int __ispunct_l(int c, locale_t l)
+c2go_extern int ispunct_l(int c, locale_t l)
 {
 	return ispunct(c);
 }
 
-weak_alias(__ispunct_l, ispunct_l);

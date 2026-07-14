@@ -1,7 +1,8 @@
+#include <c2go.h>
 #include <ctype.h>
 
 /* nonsense function that should NEVER be used! */
-int toascii(int c)
+c2go_extern int toascii(int c)
 {
 	return c & 0x7f;
 }

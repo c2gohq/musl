@@ -1,13 +1,13 @@
+#include <c2go.h>
 #include <ctype.h>
 
-int isblank(int c)
+c2go_extern int isblank(int c)
 {
 	return (c == ' ' || c == '\t');
 }
 
-int __isblank_l(int c, locale_t l)
+c2go_extern int isblank_l(int c, locale_t l)
 {
 	return isblank(c);
 }
 
-weak_alias(__isblank_l, isblank_l);

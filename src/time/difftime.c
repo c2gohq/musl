@@ -1,6 +1,7 @@
 #include <time.h>
+#include <c2go.h>
 
-double difftime(time_t t1, time_t t0)
+c2go_extern double difftime(time_t t1, time_t t0)
 {
 	return t1-t0;
 }

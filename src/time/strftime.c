@@ -6,8 +6,13 @@
 #include <ctype.h>
 #include <time.h>
 #include <limits.h>
-#include "locale_impl.h"
 #include "time_impl.h"
+#include "__c2go_langinfo.h"
+/* c2go: C-locale langinfo via the shim (locale cluster not yet built in c2go-libc2). */
+#define __nl_langinfo_l(item, loc) __c2go_langinfo(item)
+/* c2go: __strftime_l was declared in the dropped locale_impl.h; __strftime_fmt_1
+ * (above its definition) calls it, so forward-declare the intra-TU engine. */
+size_t __strftime_l(char *restrict, size_t, const char *restrict, const struct tm *restrict, locale_t);
 
 static int is_leap(int y)
 {
@@ -124,7 +129,7 @@ const char *__strftime_fmt_1(char (*s)[100], size_t *l, int f, const struct tm *
 		fmt = "%H:%M";
 		goto recu_strftime;
 	case 's':
-		val = __tm_to_secs(tm) - tm->__tm_gmtoff;
+		val = __tm_to_secs(tm) - tm->tm_gmtoff;
 		width = 1;
 		goto number;
 	case 'S':
@@ -177,14 +182,14 @@ const char *__strftime_fmt_1(char (*s)[100], size_t *l, int f, const struct tm *
 			return "";
 		}
 		*l = snprintf(*s, sizeof *s, "%+.4ld",
-			tm->__tm_gmtoff/3600*100 + tm->__tm_gmtoff%3600/60);
+			tm->tm_gmtoff/3600*100 + tm->tm_gmtoff%3600/60);
 		return *s;
 	case 'Z':
 		if (tm->tm_isdst < 0) {
 			*l = 0;
 			return "";
 		}
-		fmt = __tm_to_tzname(tm);
+		fmt = tm->tm_zone ? tm->tm_zone : "";
 		goto string;
 	case '%':
 		*l = 1;
@@ -279,9 +284,12 @@ size_t __strftime_l(char *restrict s, size_t n, const char *restrict f, const st
 	return 0;
 }
 
-size_t strftime(char *restrict s, size_t n, const char *restrict f, const struct tm *restrict tm)
+c2go_extern size_t strftime(char *restrict s, size_t n, const char *restrict f, const struct tm *restrict tm)
 {
-	return __strftime_l(s, n, f, tm, CURRENT_LOCALE);
+	return __strftime_l(s, n, f, tm, 0);
 }
 
-weak_alias(__strftime_l, strftime_l);
+c2go_extern size_t strftime_l(char *restrict s, size_t n, const char *restrict f, const struct tm *restrict tm, locale_t loc)
+{
+	return __strftime_l(s, n, f, tm, loc);
+}

@@ -6,8 +6,11 @@
 #include <string.h>
 #include <strings.h>
 #include "time_impl.h"
+#include "__c2go_langinfo.h"
+/* c2go: C-locale langinfo via the shim (locale cluster not yet built in c2go-libc2). */
+#define nl_langinfo(item) __c2go_langinfo(item)
 
-char *strptime(const char *restrict s, const char *restrict f, struct tm *restrict tm)
+c2go_extern char *strptime(const char *restrict s, const char *restrict f, struct tm *restrict tm)
 {
 	int i, w, neg, adj, min, range, *dest, dummy;
 	const char *ex;
@@ -202,14 +205,22 @@ char *strptime(const char *restrict s, const char *restrict f, struct tm *restri
 			else if (*s == '-') neg = 1;
 			else return 0;
 			for (i=0; i<4; i++) if (!isdigit(s[1+i])) return 0;
-			tm->__tm_gmtoff = (s[1]-'0')*36000+(s[2]-'0')*3600
+			tm->tm_gmtoff = (s[1]-'0')*36000+(s[2]-'0')*3600
 				+ (s[3]-'0')*600 + (s[4]-'0')*60;
-			if (neg) tm->__tm_gmtoff = -tm->__tm_gmtoff;
+			if (neg) tm->tm_gmtoff = -tm->tm_gmtoff;
 			s += 5;
 			break;
 		case 'Z':
-			i = __tzname_to_isdst(&s);
-			if (i>=0) tm->tm_isdst = i;
+			__ensure_tz();
+			if (!strncmp(s, tzname[0], len = strlen(tzname[0]))) {
+				tm->tm_isdst = 0;
+				s += len;
+			} else if (!strncmp(s, tzname[1], len = strlen(tzname[1]))) {
+				tm->tm_isdst = 1;
+				s += len;
+			} else {
+				while (((*s) | 32) - 'a' <= 'z' - 'a') s++;
+			}
 			break;
 		case '%':
 			if (*s++ != '%') return 0;

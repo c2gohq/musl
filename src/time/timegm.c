@@ -2,7 +2,7 @@
 #include "time_impl.h"
 #include <errno.h>
 
-time_t timegm(struct tm *tm)
+c2go_extern time_t timegm(struct tm *tm)
 {
 	struct tm new;
 	long long t = __tm_to_secs(tm);
@@ -12,7 +12,7 @@ time_t timegm(struct tm *tm)
 	}
 	*tm = new;
 	tm->tm_isdst = 0;
-	tm->__tm_gmtoff = 0;
-	tm->__tm_zone = __utc;
+	tm->tm_gmtoff = 0;
+	tm->tm_zone = "UTC";
 	return t;
 }

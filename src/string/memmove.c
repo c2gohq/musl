@@ -1,3 +1,4 @@
+#include <c2go.h>
 #include <string.h>
 #include <stdint.h>
 
@@ -6,7 +7,8 @@ typedef __attribute__((__may_alias__)) size_t WT;
 #define WS (sizeof(WT))
 #endif
 
-void *memmove(void *dest, const void *src, size_t n)
+__attribute__((no_builtin))
+c2go_extern void *memmove(void *dest, const void *src, size_t n)
 {
 	char *d = dest;
 	const char *s = src;

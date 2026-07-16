@@ -1,9 +1,8 @@
-#include <c2go.h>
 #include <wchar.h>
 #include <limits.h>
 #include <string.h>
 
-c2go_extern size_t wcsnrtombs(char *restrict dst, const wchar_t **restrict wcs, size_t wn, size_t n, mbstate_t *restrict st)
+size_t wcsnrtombs(char *restrict dst, const wchar_t **restrict wcs, size_t wn, size_t n, mbstate_t *restrict st)
 {
 	const wchar_t *ws = *wcs;
 	size_t cnt = 0;

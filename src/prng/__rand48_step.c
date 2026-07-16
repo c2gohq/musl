@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "rand48.h"
 
+c2go_extern_as(C2GO_KEEPCASE)
 uint64_t __rand48_step(unsigned short *xi, unsigned short *lc)
 {
 	uint64_t a, x;

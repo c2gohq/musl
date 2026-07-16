@@ -2,7 +2,7 @@
 #include <inttypes.h>
 #include "rand48.h"
 
-double erand48(unsigned short s[3])
+c2go_extern double erand48(unsigned short s[3])
 {
 	union {
 		uint64_t u;
@@ -11,7 +11,7 @@ double erand48(unsigned short s[3])
 	return x.f - 1.0;
 }
 
-double drand48(void)
+c2go_extern double drand48(void)
 {
 	return erand48(__seed48);
 }

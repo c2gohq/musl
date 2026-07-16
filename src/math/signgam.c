@@ -3,4 +3,4 @@
 
 int __signgam = 0;
 
-weak_alias(__signgam, signgam);
+/* c2go: data weak_alias -> #define signgam __signgam in <math.h> (optreset precedent). */

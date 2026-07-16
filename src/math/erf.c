@@ -210,7 +210,7 @@ static double erfc2(uint32_t ix, double x)
 	return exp(-z*z-0.5625)*exp((z-x)*(z+x)+R/S)/x;
 }
 
-double erf(double x)
+c2go_extern double erf(double x)
 {
 	double r,s,z,y;
 	uint32_t ix;
@@ -241,7 +241,7 @@ double erf(double x)
 	return sign ? -y : y;
 }
 
-double erfc(double x)
+c2go_extern double erfc(double x)
 {
 	double r,s,z,y;
 	uint32_t ix;

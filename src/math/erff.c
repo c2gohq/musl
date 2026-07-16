@@ -120,7 +120,7 @@ static float erfc2(uint32_t ix, float x)
 	return expf(-z*z - 0.5625f) * expf((z-x)*(z+x) + R/S)/x;
 }
 
-float erff(float x)
+c2go_extern float erff(float x)
 {
 	float r,s,z,y;
 	uint32_t ix;
@@ -151,7 +151,7 @@ float erff(float x)
 	return sign ? -y : y;
 }
 
-float erfcf(float x)
+c2go_extern float erfcf(float x)
 {
 	float r,s,z,y;
 	uint32_t ix;

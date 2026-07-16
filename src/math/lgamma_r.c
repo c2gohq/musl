@@ -167,6 +167,8 @@ static double sin_pi(double x)
 	}
 }
 
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 double __lgamma_r(double x, int *signgamp)
 {
 	union {double f; uint64_t i;} u = {x};
@@ -280,4 +282,8 @@ double __lgamma_r(double x, int *signgamp)
 	return r;
 }
 
-weak_alias(__lgamma_r, lgamma_r);
+/* c2go: weak_alias -> explicit exported wrapper (c2go has no weak_alias). */
+c2go_extern double lgamma_r(double x, int *signgamp)
+{
+	return __lgamma_r(x, signgamp);
+}

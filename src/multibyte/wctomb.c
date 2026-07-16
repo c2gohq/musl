@@ -1,6 +1,6 @@
-#include <c2go.h>
 #include <stdlib.h>
 #include <wchar.h>
+#include <c2go.h>
 
 c2go_extern int wctomb(char *s, wchar_t wc)
 {

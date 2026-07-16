@@ -1,7 +1,10 @@
 #define bittab __fsmu8
 
 #include <stdint.h>
-#include <features.h>
+/* c2go: features.h (hidden = ELF visibility) is not pulled; neutralise it. */
+#ifndef hidden
+#define hidden
+#endif
 
 extern hidden const uint32_t bittab[];
 
@@ -20,5 +23,7 @@ extern hidden const uint32_t bittab[];
 #define CODEUNIT(c) (0xdfff & (signed char)(c))
 #define IS_CODEUNIT(c) ((unsigned)(c)-0xdf80 < 0x80)
 
-/* Get inline definition of MB_CUR_MAX. */
-#include "locale_impl.h"
+/* c2go: no locale infra; this libc is always C.UTF-8, so MB_CUR_MAX is the
+ * constant 4 (matches csrc/multibyte.c). */
+#undef MB_CUR_MAX
+#define MB_CUR_MAX 4

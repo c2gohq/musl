@@ -16,7 +16,7 @@ static void walk(const struct node *r, void (*action)(const void *, VISIT, int),
 	}
 }
 
-void twalk(const void *root, void (*action)(const void *, VISIT, int))
+c2go_extern void twalk(const void *root, void (*action)(const void *, VISIT, int))
 {
 	walk(root, action, 0);
 }

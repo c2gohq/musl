@@ -28,6 +28,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <c2go.h>
 
 #include "atomic.h"
 #define ntz(x) a_ctz_l((x))
@@ -163,6 +164,9 @@ static void trinkle(unsigned char *head, size_t width, cmpfun cmp, void *arg, si
 	}
 }
 
+/* c2go: KEEPCASE — a CamelCase Go alias would collide with qsort_r's; the
+ * cross-TU caller (qsort_nr.c) reaches it via the <stdlib.h> linkname decl. */
+c2go_extern_as(C2GO_KEEPCASE)
 void __qsort_r(void *base, size_t nel, size_t width, cmpfun cmp, void *arg)
 {
 	size_t lp[12*sizeof(size_t)];
@@ -226,4 +230,9 @@ void __qsort_r(void *base, size_t nel, size_t width, cmpfun cmp, void *arg)
 	}
 }
 
-weak_alias(__qsort_r, qsort_r);
+/* c2go: weak_alias(__qsort_r, qsort_r) collapsed to an explicit exported
+ * wrapper (c2go does not lower weak_alias). */
+c2go_extern void qsort_r(void *base, size_t nel, size_t width, cmpfun cmp, void *arg)
+{
+	__qsort_r(base, nel, width, cmp, arg);
+}

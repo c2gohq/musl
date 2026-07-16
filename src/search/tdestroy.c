@@ -3,7 +3,7 @@
 #include <search.h>
 #include "tsearch.h"
 
-void tdestroy(void *root, void (*freekey)(void *))
+c2go_extern void tdestroy(void *root, void (*freekey)(void *))
 {
 	struct node *r = root;
 

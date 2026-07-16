@@ -46,6 +46,7 @@ static int rot(void **p, struct node *x, int dir /* deeper side */)
 }
 
 /* balance *p, return 0 if height is unchanged.  */
+c2go_extern_as(C2GO_KEEPCASE)
 int __tsearch_balance(void **p)
 {
 	struct node *n = *p;
@@ -59,7 +60,7 @@ int __tsearch_balance(void **p)
 	return rot(p, n, h0<h1);
 }
 
-void *tsearch(const void *key, void **rootp,
+c2go_extern void *tsearch(const void *key, void **rootp,
 	int (*cmp)(const void *, const void *))
 {
 	if (!rootp)

@@ -2,7 +2,7 @@
 #include <search.h>
 #include "tsearch.h"
 
-void *tdelete(const void *restrict key, void **restrict rootp,
+c2go_extern void *tdelete(const void *restrict key, void **restrict rootp,
 	int(*cmp)(const void *, const void *))
 {
 	if (!rootp)

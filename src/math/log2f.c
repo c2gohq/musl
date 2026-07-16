@@ -23,7 +23,7 @@ Relative error: 1.9 * 2^-26 (before rounding.)
 #define A __log2f_data.poly
 #define OFF 0x3f330000
 
-float log2f(float x)
+c2go_extern float log2f(float x)
 {
 	double_t z, r, r2, p, y, y0, invc, logc;
 	uint32_t ix, iz, top, tmp;

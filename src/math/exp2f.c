@@ -30,7 +30,7 @@ static inline uint32_t top12(float x)
 	return asuint(x) >> 20;
 }
 
-float exp2f(float x)
+c2go_extern float exp2f(float x)
 {
 	uint32_t abstop;
 	uint64_t ki, t;

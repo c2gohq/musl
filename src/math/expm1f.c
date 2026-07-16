@@ -27,7 +27,7 @@ invln2      = 1.4426950216e+00, /* 0x3fb8aa3b */
 Q1 = -3.3333212137e-2, /* -0x888868.0p-28 */
 Q2 =  1.5807170421e-3; /*  0xcf3010.0p-33 */
 
-float expm1f(float x)
+c2go_extern float expm1f(float x)
 {
 	float_t y,hi,lo,c,t,e,hxs,hfx,r1,twopk;
 	union {float f; uint32_t i;} u = {x};

@@ -24,7 +24,7 @@ Relative error: 1.957 * 2^-26 (before rounding.)
 #define N (1 << LOGF_TABLE_BITS)
 #define OFF 0x3f330000
 
-float logf(float x)
+c2go_extern float logf(float x)
 {
 	double_t z, r, r2, y, y0, invc, logc;
 	uint32_t ix, iz, tmp;

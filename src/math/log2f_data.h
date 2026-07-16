@@ -5,11 +5,10 @@
 #ifndef _LOG2F_DATA_H
 #define _LOG2F_DATA_H
 
-#include <features.h>
 
 #define LOG2F_TABLE_BITS 4
 #define LOG2F_POLY_ORDER 4
-extern hidden const struct log2f_data {
+extern const struct log2f_data {
 	struct {
 		double invc, logc;
 	} tab[1 << LOG2F_TABLE_BITS];

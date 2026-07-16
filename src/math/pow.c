@@ -252,7 +252,7 @@ static inline int zeroinfnan(uint64_t i)
 	return 2 * i - 1 >= 2 * asuint64(INFINITY) - 1;
 }
 
-double pow(double x, double y)
+c2go_extern double pow(double x, double y)
 {
 	uint32_t sign_bias = 0;
 	uint64_t ix, iy;

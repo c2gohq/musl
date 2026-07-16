@@ -5,13 +5,12 @@
 #ifndef _EXP2F_DATA_H
 #define _EXP2F_DATA_H
 
-#include <features.h>
 #include <stdint.h>
 
 /* Shared between expf, exp2f and powf.  */
 #define EXP2F_TABLE_BITS 5
 #define EXP2F_POLY_ORDER 3
-extern hidden const struct exp2f_data {
+extern const struct exp2f_data {
 	uint64_t tab[1 << EXP2F_TABLE_BITS];
 	double shift_scaled;
 	double poly[EXP2F_POLY_ORDER];

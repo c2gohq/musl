@@ -27,7 +27,7 @@ Lg2 = 0xccce13.0p-25, /* 0.40000972152 */
 Lg3 = 0x91e9ee.0p-25, /* 0.28498786688 */
 Lg4 = 0xf89e26.0p-26; /* 0.24279078841 */
 
-float log10f(float x)
+c2go_extern float log10f(float x)
 {
 	union {float f; uint32_t i;} u = {x};
 	float_t hfsq,f,s,z,R,w,t1,t2,dk,hi,lo;

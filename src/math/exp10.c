@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdint.h>
 
-double exp10(double x)
+c2go_extern double exp10(double x)
 {
 	static const double p10[] = {
 		1e-15, 1e-14, 1e-13, 1e-12, 1e-11, 1e-10,
@@ -21,4 +21,8 @@ double exp10(double x)
 	return pow(10.0, x);
 }
 
-weak_alias(exp10, pow10);
+/* c2go: weak_alias -> explicit exported wrapper (c2go has no weak_alias). */
+c2go_extern double pow10(double x)
+{
+	return exp10(x);
+}

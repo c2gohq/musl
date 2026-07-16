@@ -1,13 +1,12 @@
 #include <wctype.h>
+#include <c2go.h>
 
-int iswxdigit(wint_t wc)
+c2go_extern int iswxdigit(wint_t wc)
 {
 	return (unsigned)(wc-'0') < 10 || (unsigned)((wc|32)-'a') < 6;
 }
 
-int __iswxdigit_l(wint_t c, locale_t l)
+c2go_extern int iswxdigit_l(wint_t c, locale_t l)
 {
 	return iswxdigit(c);
 }
-
-weak_alias(__iswxdigit_l, iswxdigit_l);

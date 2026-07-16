@@ -1,6 +1,7 @@
 #include <wctype.h>
+#include <c2go.h>
 
-int iswcntrl(wint_t wc)
+c2go_extern int iswcntrl(wint_t wc)
 {
 	return (unsigned)wc < 32
 	    || (unsigned)(wc-0x7f) < 33
@@ -8,9 +9,7 @@ int iswcntrl(wint_t wc)
 	    || (unsigned)(wc-0xfff9) < 3;
 }
 
-int __iswcntrl_l(wint_t c, locale_t l)
+c2go_extern int iswcntrl_l(wint_t c, locale_t l)
 {
 	return iswcntrl(c);
 }
-
-weak_alias(__iswcntrl_l, iswcntrl_l);

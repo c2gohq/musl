@@ -1,4 +1,5 @@
 #include <wctype.h>
+#include <c2go.h>
 
 /* Consider all legal codepoints as printable except for:
  * - C0 and C1 control characters
@@ -7,7 +8,7 @@
  * The following code is optimized heavily to make hot paths for the
  * expected printable characters. */
 
-int iswprint(wint_t wc)
+c2go_extern int iswprint(wint_t wc)
 {
 	if (wc < 0xffU)
 		return (wc+1 & 0x7f) >= 0x21;
@@ -18,9 +19,7 @@ int iswprint(wint_t wc)
 	return 1;
 }
 
-int __iswprint_l(wint_t c, locale_t l)
+c2go_extern int iswprint_l(wint_t c, locale_t l)
 {
 	return iswprint(c);
 }
-
-weak_alias(__iswprint_l, iswprint_l);

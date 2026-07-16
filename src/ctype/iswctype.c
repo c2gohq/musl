@@ -1,5 +1,6 @@
 #include <wctype.h>
 #include <string.h>
+#include <c2go.h>
 
 #define WCTYPE_ALNUM  1
 #define WCTYPE_ALPHA  2
@@ -14,9 +15,9 @@
 #define WCTYPE_UPPER  11
 #define WCTYPE_XDIGIT 12
 
-int iswctype(wint_t wc, wctype_t type)
+c2go_extern int iswctype(wint_t wc, wctype_t t)
 {
-	switch (type) {
+	switch (t) {
 	case WCTYPE_ALNUM:
 		return iswalnum(wc);
 	case WCTYPE_ALPHA:
@@ -45,7 +46,7 @@ int iswctype(wint_t wc, wctype_t type)
 	return 0;
 }
 
-wctype_t wctype(const char *s)
+c2go_extern wctype_t wctype(const char *s)
 {
 	int i;
 	const char *p;
@@ -61,15 +62,12 @@ wctype_t wctype(const char *s)
 	return 0;
 }
 
-int __iswctype_l(wint_t c, wctype_t t, locale_t l)
+c2go_extern int iswctype_l(wint_t c, wctype_t t, locale_t l)
 {
 	return iswctype(c, t);
 }
 
-wctype_t __wctype_l(const char *s, locale_t l)
+c2go_extern wctype_t wctype_l(const char *s, locale_t l)
 {
 	return wctype(s);
 }
-
-weak_alias(__iswctype_l, iswctype_l);
-weak_alias(__wctype_l, wctype_l);

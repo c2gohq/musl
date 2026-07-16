@@ -49,6 +49,8 @@
 */
 
 /* Returns a new memory allocator or NULL if out of memory. */
+/* c2go: KEEPCASE cross-TU exports (three sites) — see the tre.h note. */
+c2go_extern_as(C2GO_KEEPCASE)
 tre_mem_t
 tre_mem_new_impl(int provided, void *provided_block)
 {
@@ -67,6 +69,7 @@ tre_mem_new_impl(int provided, void *provided_block)
 
 
 /* Frees the memory allocator and all memory allocated with it. */
+c2go_extern_as(C2GO_KEEPCASE)
 void
 tre_mem_destroy(tre_mem_t mem)
 {
@@ -85,6 +88,7 @@ tre_mem_destroy(tre_mem_t mem)
 
 /* Allocates a block of `size' bytes from `mem'.  Returns a pointer to the
    allocated block or NULL if an underlying malloc() failed. */
+c2go_extern_as(C2GO_KEEPCASE)
 void *
 tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_block,
 		   int zero, size_t size)

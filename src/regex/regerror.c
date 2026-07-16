@@ -1,7 +1,10 @@
 #include <string.h>
 #include <regex.h>
 #include <stdio.h>
-#include "locale_impl.h"
+#include <c2go.h>
+/* c2go: locale_impl.h dropped — this C.UTF-8-only libc has no message
+ * catalogs, so musl's LC_MESSAGES translation is the identity. */
+#define LCTRANS_CUR(msg) (msg)
 
 /* Error message strings for error codes listed in `regex.h'.  This list
    needs to be in sync with the codes listed there, naturally. */
@@ -27,7 +30,7 @@ static const char messages[] = {
   "\0Unknown error"
 };
 
-size_t regerror(int e, const regex_t *restrict preg, char *restrict buf, size_t size)
+c2go_extern size_t regerror(int e, const regex_t *restrict preg, char *restrict buf, size_t size)
 {
 	const char *s;
 	for (s=messages; e && *s; e--, s+=strlen(s)+1);

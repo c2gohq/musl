@@ -32,6 +32,7 @@
 #include <regex.h>
 #include <wchar.h>
 #include <wctype.h>
+#include <c2go.h>
 
 #undef  TRE_MBSTATE
 
@@ -191,9 +192,17 @@ typedef struct tre_mem_struct {
 #define tre_mem_alloc_impl __tre_mem_alloc_impl
 #define tre_mem_destroy    __tre_mem_destroy
 
-hidden tre_mem_t tre_mem_new_impl(int provided, void *provided_block);
-hidden void *tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_block,
-                                int zero, size_t size);
+/* c2go: cross-TU internals (tre-mem.c defines, regcomp.c/regexec.c call) —
+ * linkname declarations here + c2go_extern_as(C2GO_KEEPCASE) on the
+ * definitions (a bare extern would be an unmanaged HOST import under the
+ * default-unmanaged model and trip the c2go-lto name-collision guard). The
+ * linkname targets are the post-#define real __-symbols; the namespacing
+ * macros above rewrite these declarations to the same names. */
+tre_mem_t tre_mem_new_impl(int provided, void *provided_block)
+    c2go_linkname("github.com/c2gohq/c2go_libc.__tre_mem_new_impl", C2GO_GOABI0);
+void *tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_block,
+                                int zero, size_t size)
+    c2go_linkname("github.com/c2gohq/c2go_libc.__tre_mem_alloc_impl", C2GO_GOABI0);
 
 /* Returns a new memory allocator or NULL if out of memory. */
 #define tre_mem_new()  tre_mem_new_impl(0, NULL)
@@ -222,7 +231,8 @@ hidden void *tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_bloc
 
 
 /* Frees the memory allocator and all memory allocated with it. */
-hidden void tre_mem_destroy(tre_mem_t mem);
+void tre_mem_destroy(tre_mem_t mem)
+    c2go_linkname("github.com/c2gohq/c2go_libc.__tre_mem_destroy", C2GO_GOABI0);
 
 #define xmalloc malloc
 #define xcalloc calloc

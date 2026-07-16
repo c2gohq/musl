@@ -992,7 +992,7 @@ tre_fill_pmatch(size_t nmatch, regmatch_t pmatch[], int cflags,
   Wrapper functions for POSIX compatible regexp matching.
 */
 
-int
+c2go_extern int
 regexec(const regex_t *restrict preg, const char *restrict string,
 	  size_t nmatch, regmatch_t pmatch[restrict], int eflags)
 {

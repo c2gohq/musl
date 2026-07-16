@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
+#include <c2go.h>
 
-int getsubopt(char **opt, char *const *keys, char **val)
+c2go_extern int getsubopt(char **opt, char *const *keys, char **val)
 {
 	char *s = *opt;
 	int i;

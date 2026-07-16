@@ -1,7 +1,8 @@
 #include <string.h>
 #include <libgen.h>
+#include <c2go.h>
 
-char *basename(char *s)
+c2go_extern char *basename(char *s)
 {
 	size_t i;
 	if (!s || !*s) return ".";
@@ -10,5 +11,4 @@ char *basename(char *s)
 	for (; i&&s[i-1]!='/'; i--);
 	return s+i;
 }
-
-weak_alias(basename, __xpg_basename);
+/* c2go: weak_alias __xpg_basename omitted (glibc-compat name, no consumer). */

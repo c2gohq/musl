@@ -1,7 +1,8 @@
 #include <string.h>
 #include <libgen.h>
+#include <c2go.h>
 
-char *dirname(char *s)
+c2go_extern char *dirname(char *s)
 {
 	size_t i;
 	if (!s || !*s) return ".";

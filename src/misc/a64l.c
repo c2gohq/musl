@@ -1,11 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <c2go.h>
 
 static const char digits[] =
 	"./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-long a64l(const char *s)
+c2go_extern long a64l(const char *s)
 {
 	int e;
 	uint32_t x = 0;
@@ -17,7 +18,7 @@ long a64l(const char *s)
 	return (int32_t)x;
 }
 
-char *l64a(long x0)
+c2go_extern char *l64a(long x0)
 {
 	static char s[7];
 	char *p;

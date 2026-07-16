@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <errno.h>
+#include <c2go.h>
 
-int posix_memalign(void **res, size_t align, size_t len)
+c2go_extern int posix_memalign(void **res, size_t align, size_t len)
 {
 	if (align < sizeof(void *)) return EINVAL;
 	void *mem = aligned_alloc(align, len);

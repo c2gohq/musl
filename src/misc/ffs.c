@@ -1,7 +1,8 @@
 #include <strings.h>
 #include "atomic.h"
+#include <c2go.h>
 
-int ffs(int i)
+c2go_extern int ffs(int i)
 {
 	return i ? a_ctz_l(i)+1 : 0;
 }

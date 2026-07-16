@@ -18,7 +18,9 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include <wctype.h>
-#include "locale_impl.h"
+#include <c2go.h>
+/* c2go: locale_impl.h dropped — MB_CUR_MAX is <stdlib.h>'s constant 4 in this
+ * C.UTF-8-only libc. */
 
 #define END 0
 #define UNMATCHABLE -2
@@ -295,7 +297,7 @@ static int fnmatch_internal(const char *pat, size_t m, const char *str, size_t n
 	return 0;
 }
 
-int fnmatch(const char *pat, const char *str, int flags)
+c2go_extern int fnmatch(const char *pat, const char *str, int flags)
 {
 	const char *s, *p;
 	size_t inc;

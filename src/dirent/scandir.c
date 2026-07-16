@@ -4,8 +4,9 @@
 #include <stdint.h>
 #include <errno.h>
 #include <stddef.h>
+#include <c2go.h>
 
-int scandir(const char *path, struct dirent ***res,
+c2go_extern int scandir(const char *path, struct dirent ***res,
 	int (*sel)(const struct dirent *),
 	int (*cmp)(const struct dirent **, const struct dirent **))
 {

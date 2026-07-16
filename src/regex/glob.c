@@ -9,7 +9,8 @@
 #include <errno.h>
 #include <stddef.h>
 #include <unistd.h>
-#include <pwd.h>
+#include <c2go.h>
+/* c2go: <pwd.h> dropped — no passwd layer in this libc; see expand_tilde. */
 
 struct match
 {
@@ -196,23 +197,16 @@ static int expand_tilde(char **pat, char *buf, size_t *pos)
 	char *p = *pat + 1;
 	size_t i = 0;
 
-	char delim, *name_end = __strchrnul(p, '/');
+	char delim, *name_end = strchrnul(p, '/');
 	if ((delim = *name_end)) *name_end++ = 0;
 	*pat = name_end;
 
 	char *home = *p ? NULL : getenv("HOME");
 	if (!home) {
-		struct passwd pw, *res;
-		switch (*p ? getpwnam_r(p, &pw, buf, PATH_MAX, &res)
-			   : getpwuid_r(getuid(), &pw, buf, PATH_MAX, &res)) {
-		case ENOMEM:
-			return GLOB_NOSPACE;
-		case 0:
-			if (!res)
-		default:
-				return GLOB_NOMATCH;
-		}
-		home = pw.pw_dir;
+		/* c2go: no passwd layer in this libc — ~user lookups and a
+		 * HOME-less ~ take musl's own "no such user" failure path
+		 * (getpw*_r miss => GLOB_NOMATCH). */
+		return GLOB_NOMATCH;
 	}
 	while (i < PATH_MAX - 2 && *home)
 		buf[i++] = *home++;
@@ -224,7 +218,7 @@ static int expand_tilde(char **pat, char *buf, size_t *pos)
 	return 0;
 }
 
-int glob(const char *restrict pat, int flags, int (*errfunc)(const char *path, int err), glob_t *restrict g)
+c2go_extern int glob(const char *restrict pat, int flags, int (*errfunc)(const char *path, int err), glob_t *restrict g)
 {
 	struct match head = { .next = NULL }, *tail = &head;
 	size_t cnt, i;
@@ -286,6 +280,12 @@ int glob(const char *restrict pat, int flags, int (*errfunc)(const char *path, i
 		for (i=0; i<offs; i++)
 			g->gl_pathv[i] = NULL;
 	}
+	/* c2go escape-audit note: the flow-insensitive audit merges tail's two
+	 * assignments (&head above / the heap match chain here) and flags
+	 * `= tail->name` as a possible stack->heap store. The loop starts at
+	 * head.next, so tail only ever points at malloc'd matches — false
+	 * positive, accepted by the nonfatal pipeline (stdio internal_buf
+	 * precedent in gen.sh's header). */
 	for (i=0, tail=head.next; i<cnt; tail=tail->next, i++)
 		g->gl_pathv[offs + i] = tail->name;
 	g->gl_pathv[offs + i] = NULL;
@@ -297,7 +297,7 @@ int glob(const char *restrict pat, int flags, int (*errfunc)(const char *path, i
 	return error;
 }
 
-void globfree(glob_t *g)
+c2go_extern void globfree(glob_t *g)
 {
 	size_t i;
 	for (i=0; i<g->gl_pathc; i++)

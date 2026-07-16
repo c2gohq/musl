@@ -1,7 +1,8 @@
 #include <math.h>
+#include <c2go.h>
 #include <stdint.h>
 
-float scalbnf(float x, int n)
+c2go_extern float scalbnf(float x, int n)
 {
 	union {float f; uint32_t i;} u;
 	float_t y = x;

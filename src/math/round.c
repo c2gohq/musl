@@ -7,7 +7,7 @@
 #endif
 static const double_t toint = 1/EPS;
 
-double round(double x)
+c2go_extern double round(double x)
 {
 	union {double f; uint64_t i;} u = {x};
 	int e = u.i >> 52 & 0x7ff;

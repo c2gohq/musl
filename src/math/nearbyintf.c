@@ -1,7 +1,8 @@
 #include <fenv.h>
 #include <math.h>
+#include <c2go.h>
 
-float nearbyintf(float x)
+c2go_extern float nearbyintf(float x)
 {
 #ifdef FE_INEXACT
 	#pragma STDC FENV_ACCESS ON

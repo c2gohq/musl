@@ -1,7 +1,8 @@
 #include <math.h>
+#include <c2go.h>
 #include <stdint.h>
 
-double fmod(double x, double y)
+c2go_extern double fmod(double x, double y)
 {
 	union {double f; uint64_t i;} ux = {x}, uy = {y};
 	int ex = ux.i>>52 & 0x7ff;

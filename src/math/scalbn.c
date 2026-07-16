@@ -1,7 +1,8 @@
 #include <math.h>
+#include <c2go.h>
 #include <stdint.h>
 
-double scalbn(double x, int n)
+c2go_extern double scalbn(double x, int n)
 {
 	union {double f; uint64_t i;} u;
 	double_t y = x;

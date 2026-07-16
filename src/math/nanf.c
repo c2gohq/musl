@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-float nanf(const char *s)
+c2go_extern float nanf(const char *s)
 {
 	return NAN;
 }

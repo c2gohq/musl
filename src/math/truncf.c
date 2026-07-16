@@ -1,6 +1,6 @@
 #include "libm.h"
 
-float truncf(float x)
+c2go_extern float truncf(float x)
 {
 	union {float f; uint32_t i;} u = {x};
 	int e = (int)(u.i >> 23 & 0xff) - 0x7f + 9;

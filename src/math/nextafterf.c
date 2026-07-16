@@ -1,6 +1,6 @@
 #include "libm.h"
 
-float nextafterf(float x, float y)
+c2go_extern float nextafterf(float x, float y)
 {
 	union {float f; uint32_t i;} ux={x}, uy={y};
 	uint32_t ax, ay, e;

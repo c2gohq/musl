@@ -1,11 +1,12 @@
 #include <fenv.h>
-#include <features.h>
+#include <c2go.h>
 
 /* __fesetround wrapper for arch independent argument check */
 
-hidden int __fesetround(int);
+int __fesetround(int)
+    c2go_linkname("github.com/c2gohq/c2go_libc.__fesetround", C2GO_GOABI0);
 
-int fesetround(int r)
+c2go_extern int fesetround(int r)
 {
 	if (r != FE_TONEAREST
 #ifdef FE_DOWNWARD

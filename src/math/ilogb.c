@@ -1,7 +1,7 @@
 #include <limits.h>
 #include "libm.h"
 
-int ilogb(double x)
+c2go_extern int ilogb(double x)
 {
 	#pragma STDC FENV_ACCESS ON
 	union {double f; uint64_t i;} u = {x};

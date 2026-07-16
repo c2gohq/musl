@@ -1,5 +1,6 @@
 #include <float.h>
 #include <math.h>
+#include <c2go.h>
 #include <stdint.h>
 
 #if FLT_EVAL_METHOD==0 || FLT_EVAL_METHOD==1
@@ -9,7 +10,7 @@
 #endif
 static const double_t toint = 1/EPS;
 
-double rint(double x)
+c2go_extern double rint(double x)
 {
 	union {double f; uint64_t i;} u = {x};
 	int e = u.i>>52 & 0x7ff;

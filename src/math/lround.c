@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-long lround(double x)
+c2go_extern long lround(double x)
 {
 	return round(x);
 }

@@ -1,9 +1,10 @@
 #include <math.h>
+#include <c2go.h>
 
-double remainder(double x, double y)
+c2go_extern double remainder(double x, double y)
 {
 	int q;
 	return remquo(x, y, &q);
 }
 
-weak_alias(remainder, drem);
+/* c2go: weak_alias drem omitted (BSD-legacy name, no consumer). */

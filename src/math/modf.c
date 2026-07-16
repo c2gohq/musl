@@ -1,6 +1,6 @@
 #include "libm.h"
 
-double modf(double x, double *iptr)
+c2go_extern double modf(double x, double *iptr)
 {
 	union {double f; uint64_t i;} u = {x};
 	uint64_t mask;

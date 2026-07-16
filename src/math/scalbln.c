@@ -1,7 +1,8 @@
 #include <limits.h>
 #include <math.h>
+#include <c2go.h>
 
-double scalbln(double x, long n)
+c2go_extern double scalbln(double x, long n)
 {
 	if (n > INT_MAX)
 		n = INT_MAX;

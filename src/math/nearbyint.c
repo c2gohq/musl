@@ -1,9 +1,10 @@
 #include <fenv.h>
 #include <math.h>
+#include <c2go.h>
 
 /* nearbyint is the same as rint, but it must not raise the inexact exception */
 
-double nearbyint(double x)
+c2go_extern double nearbyint(double x)
 {
 #ifdef FE_INEXACT
 	#pragma STDC FENV_ACCESS ON

@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <float.h>
 #include <math.h>
+#include <c2go.h>
 #include "atomic.h"
 
 #define ASUINT64(x) ((union {double f; uint64_t i;}){x}).i
@@ -39,7 +40,7 @@ static void mul(uint64_t *hi, uint64_t *lo, uint64_t x, uint64_t y)
 	*hi = t3 + (t2>>32) + (t1 > *lo);
 }
 
-double fma(double x, double y, double z)
+c2go_extern double fma(double x, double y, double z)
 {
 	#pragma STDC FENV_ACCESS ON
 

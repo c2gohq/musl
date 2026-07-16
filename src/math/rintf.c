@@ -1,5 +1,6 @@
 #include <float.h>
 #include <math.h>
+#include <c2go.h>
 #include <stdint.h>
 
 #if FLT_EVAL_METHOD==0
@@ -11,7 +12,7 @@
 #endif
 static const float_t toint = 1/EPS;
 
-float rintf(float x)
+c2go_extern float rintf(float x)
 {
 	union {float f; uint32_t i;} u = {x};
 	int e = u.i>>23 & 0xff;

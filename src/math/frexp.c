@@ -1,7 +1,8 @@
 #include <math.h>
+#include <c2go.h>
 #include <stdint.h>
 
-double frexp(double x, int *e)
+c2go_extern double frexp(double x, int *e)
 {
 	union { double d; uint64_t i; } y = { x };
 	int ee = y.i>>52 & 0x7ff;

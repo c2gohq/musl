@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-float fdimf(float x, float y)
+c2go_extern float fdimf(float x, float y)
 {
 	if (isnan(x))
 		return x;

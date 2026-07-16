@@ -1,7 +1,8 @@
 #include <limits.h>
 #include <math.h>
+#include <c2go.h>
 
-float scalblnf(float x, long n)
+c2go_extern float scalblnf(float x, long n)
 {
 	if (n > INT_MAX)
 		n = INT_MAX;

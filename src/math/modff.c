@@ -1,6 +1,6 @@
 #include "libm.h"
 
-float modff(float x, float *iptr)
+c2go_extern float modff(float x, float *iptr)
 {
 	union {float f; uint32_t i;} u = {x};
 	uint32_t mask;

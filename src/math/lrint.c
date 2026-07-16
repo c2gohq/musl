@@ -51,7 +51,7 @@ static long lrint_slow(double x)
 	return x;
 }
 
-long lrint(double x)
+c2go_extern long lrint(double x)
 {
 	uint32_t abstop = asuint64(x)>>32 & 0x7fffffff;
 	uint64_t sign = asuint64(x) & (1ULL << 63);
@@ -65,7 +65,7 @@ long lrint(double x)
 	return lrint_slow(x);
 }
 #else
-long lrint(double x)
+c2go_extern long lrint(double x)
 {
 	return rint(x);
 }

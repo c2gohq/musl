@@ -1,4 +1,5 @@
 #include <math.h>
+#include <c2go.h>
 
 /*
 special cases:
@@ -7,7 +8,7 @@ special cases:
 	logb(nan) = nan
 */
 
-double logb(double x)
+c2go_extern double logb(double x)
 {
 	if (!isfinite(x))
 		return x * x;

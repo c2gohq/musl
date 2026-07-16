@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-float logbf(float x)
+c2go_extern float logbf(float x)
 {
 	if (!isfinite(x))
 		return x * x;

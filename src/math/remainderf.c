@@ -1,9 +1,10 @@
 #include <math.h>
+#include <c2go.h>
 
-float remainderf(float x, float y)
+c2go_extern float remainderf(float x, float y)
 {
 	int q;
 	return remquof(x, y, &q);
 }
 
-weak_alias(remainderf, dremf);
+/* c2go: weak_alias dremf omitted (BSD-legacy name, no consumer). */

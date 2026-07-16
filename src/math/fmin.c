@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-double fmin(double x, double y)
+c2go_extern double fmin(double x, double y)
 {
 	if (isnan(x))
 		return y;

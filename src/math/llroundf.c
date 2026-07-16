@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-long long llroundf(float x)
+c2go_extern long long llroundf(float x)
 {
 	return roundf(x);
 }

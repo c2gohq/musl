@@ -1,6 +1,6 @@
 #include "libm.h"
 
-double nextafter(double x, double y)
+c2go_extern double nextafter(double x, double y)
 {
 	union {double f; uint64_t i;} ux={x}, uy={y};
 	uint64_t ax, ay;

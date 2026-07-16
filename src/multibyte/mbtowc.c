@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include <errno.h>
+#include <c2go.h>
 #include "internal.h"
 
-int mbtowc(wchar_t *restrict wc, const char *restrict src, size_t n)
+c2go_extern int mbtowc(wchar_t *restrict wc, const char *restrict src, size_t n)
 {
 	unsigned c;
 	const unsigned char *s = (const void *)src;
@@ -38,6 +39,11 @@ int mbtowc(wchar_t *restrict wc, const char *restrict src, size_t n)
 	}
 
 	if (*s-0x80u >= 0x40) goto ilseq;
+	/* c2go: a 4-byte sequence is a supplementary scalar (>= U+10000); a 16-bit
+	 * wchar_t (UTF-16 windows target) cannot hold it and non-restartable mbtowc
+	 * cannot split it, so report EILSEQ. Folds away where wchar_t is 32-bit
+	 * (unix) -- identical to upstream musl there. */
+	if (sizeof(wchar_t) < 4) goto ilseq;
 	*wc = c<<6 | *s++-0x80;
 	return 4;
 

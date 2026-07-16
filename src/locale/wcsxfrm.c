@@ -1,8 +1,11 @@
 #include <wchar.h>
 #include <locale.h>
-#include "locale_impl.h"
+#include <c2go.h>
+/* c2go: locale_impl.h dropped — single C.UTF-8 locale, CURRENT_LOCALE is 0. */
 
 /* collate only by code points */
+/* c2go: KEEPCASE — a CamelCase Go alias would collide with wcsxfrm_l's. */
+c2go_extern_as(C2GO_KEEPCASE)
 size_t __wcsxfrm_l(wchar_t *restrict dest, const wchar_t *restrict src, size_t n, locale_t loc)
 {
 	size_t l = wcslen(src);
@@ -15,9 +18,13 @@ size_t __wcsxfrm_l(wchar_t *restrict dest, const wchar_t *restrict src, size_t n
 	return l;
 }
 
-size_t wcsxfrm(wchar_t *restrict dest, const wchar_t *restrict src, size_t n)
+c2go_extern size_t wcsxfrm(wchar_t *restrict dest, const wchar_t *restrict src, size_t n)
 {
-	return __wcsxfrm_l(dest, src, n, CURRENT_LOCALE);
+	return __wcsxfrm_l(dest, src, n, 0);
 }
 
-weak_alias(__wcsxfrm_l, wcsxfrm_l);
+/* c2go: weak_alias(__wcsxfrm_l, wcsxfrm_l) collapsed to an exported wrapper. */
+c2go_extern size_t wcsxfrm_l(wchar_t *restrict dest, const wchar_t *restrict src, size_t n, locale_t loc)
+{
+	return __wcsxfrm_l(dest, src, n, loc);
+}

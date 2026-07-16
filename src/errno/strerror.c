@@ -1,7 +1,15 @@
 #include <errno.h>
 #include <stddef.h>
 #include <string.h>
-#include "locale_impl.h"
+#include <locale.h>
+#include <c2go.h>
+
+/* c2go: this libc ships no LC_MESSAGES catalogs, so message translation is the
+ * identity and the "current locale" is the C locale. Neutralising the two
+ * locale_impl.h macros the bodies below use keeps musl's struct+offsetof table
+ * lookup (__strerror_l) verbatim. */
+#define LCTRANS(msg, cat, loc) (msg)
+#define CURRENT_LOCALE 0
 
 /* mips has one error code outside of the 8-bit range due to a
  * historical typo, so we just remap it. */
@@ -39,9 +47,12 @@ char *__strerror_l(int e, locale_t loc)
 	return (char *)LCTRANS(s, LC_MESSAGES, loc);
 }
 
-char *strerror(int e)
+c2go_extern char *strerror(int e)
 {
 	return __strerror_l(e, CURRENT_LOCALE);
 }
 
-weak_alias(__strerror_l, strerror_l);
+c2go_extern char *strerror_l(int e, locale_t loc)
+{
+	return __strerror_l(e, loc);
+}

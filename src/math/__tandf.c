@@ -25,6 +25,8 @@ static const double T[] = {
   0x1362b9bf971bcd.0p-59, /* 0.00946564784943673166728 */
 };
 
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 float __tandf(double x, int odd)
 {
 	double_t z,r,w,s,t,u;

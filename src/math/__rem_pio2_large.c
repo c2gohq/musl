@@ -270,6 +270,8 @@ static const double PIo2[] = {
   2.16741683877804819444e-51, /* 0x3569F31D, 0x00000000 */
 };
 
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 int __rem_pio2_large(double *x, double *y, int e0, int nx, int prec)
 {
 	int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;

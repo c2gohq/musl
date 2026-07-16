@@ -19,7 +19,7 @@ static const float
 pi     = 3.1415927410e+00, /* 0x40490fdb */
 pi_lo  = -8.7422776573e-08; /* 0xb3bbbd2e */
 
-float atan2f(float y, float x)
+c2go_extern float atan2f(float y, float x)
 {
 	float z;
 	uint32_t m,ix,iy;

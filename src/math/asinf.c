@@ -32,7 +32,7 @@ static float R(float z)
 	return p/q;
 }
 
-float asinf(float x)
+c2go_extern float asinf(float x)
 {
 	double s;
 	float z;

@@ -46,6 +46,8 @@ pio2_3  = 2.02226624871116645580e-21, /* 0x3BA3198A, 0x2E000000 */
 pio2_3t = 8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 
 /* caller must handle the case when reduction is not needed: |x| ~<= pi/4 */
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 int __rem_pio2(double x, double *y)
 {
 	union {double f; uint64_t i;} u = {x};

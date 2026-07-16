@@ -13,7 +13,7 @@
 #define _GNU_SOURCE
 #include "libm.h"
 
-void sincos(double x, double *sin, double *cos)
+c2go_extern void sincos(double x, double *sin, double *cos)
 {
 	double y[2], s, c;
 	uint32_t ix;

@@ -41,7 +41,7 @@
 
 #include "libm.h"
 
-double tan(double x)
+c2go_extern double tan(double x)
 {
 	double y[2];
 	uint32_t ix;

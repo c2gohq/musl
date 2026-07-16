@@ -23,6 +23,8 @@ S2 =  0x111110896efbb2.0p-59, /*  0.0083333293858894631756 */
 S3 = -0x1a00f9e2cae774.0p-65, /* -0.000198393348360966317347 */
 S4 =  0x16cd878c3b46a7.0p-71; /*  0.0000027183114939898219064 */
 
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 float __sindf(double x)
 {
 	double_t r, s, w, z;

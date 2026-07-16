@@ -31,7 +31,7 @@ static float R(float z)
 	return p/q;
 }
 
-float acosf(float x)
+c2go_extern float acosf(float x)
 {
 	float z,w,s,c,df;
 	uint32_t hx,ix;

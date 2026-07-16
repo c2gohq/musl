@@ -57,7 +57,7 @@ static double R(double z)
 	return p/q;
 }
 
-double acos(double x)
+c2go_extern double acos(double x)
 {
 	double z,w,s,c,df;
 	uint32_t hx,ix;

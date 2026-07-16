@@ -43,7 +43,7 @@ static const double
 pi     = 3.1415926535897931160E+00, /* 0x400921FB, 0x54442D18 */
 pi_lo  = 1.2246467991473531772E-16; /* 0x3CA1A626, 0x33145C07 */
 
-double atan2(double y, double x)
+c2go_extern double atan2(double y, double x)
 {
 	double z;
 	uint32_t m,lx,ly,ix,iy;

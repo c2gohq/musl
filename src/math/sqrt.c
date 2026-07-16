@@ -21,7 +21,7 @@ static inline uint64_t mul64(uint64_t a, uint64_t b)
 	return ahi*bhi + (ahi*blo >> 32) + (alo*bhi >> 32);
 }
 
-double sqrt(double x)
+c2go_extern double sqrt(double x)
 {
 	uint64_t ix, top, m;
 

@@ -12,7 +12,7 @@ static inline uint32_t mul32(uint32_t a, uint32_t b)
 
 /* see sqrt.c for more detailed comments.  */
 
-float sqrtf(float x)
+c2go_extern float sqrtf(float x)
 {
 	uint32_t ix, m, m1, m0, even, ey;
 

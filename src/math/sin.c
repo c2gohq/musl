@@ -42,7 +42,7 @@
 
 #include "libm.h"
 
-double sin(double x)
+c2go_extern double sin(double x)
 {
 	double y[2];
 	uint32_t ix;

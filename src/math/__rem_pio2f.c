@@ -40,6 +40,8 @@ invpio2 = 6.36619772367581382433e-01, /* 0x3FE45F30, 0x6DC9C883 */
 pio2_1  = 1.57079631090164184570e+00, /* 0x3FF921FB, 0x50000000 */
 pio2_1t = 1.58932547735281966916e-08; /* 0x3E5110b4, 0x611A6263 */
 
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 int __rem_pio2f(float x, double *y)
 {
 	union {float f; uint32_t i;} u = {x};

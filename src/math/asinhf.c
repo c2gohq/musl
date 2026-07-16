@@ -1,7 +1,7 @@
 #include "libm.h"
 
 /* asinh(x) = sign(x)*log(|x|+sqrt(x*x+1)) ~= x - x^3/6 + o(x^5) */
-float asinhf(float x)
+c2go_extern float asinhf(float x)
 {
 	union {float f; uint32_t i;} u = {.f = x};
 	uint32_t i = u.i & 0x7fffffff;

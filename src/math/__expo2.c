@@ -5,6 +5,8 @@ static const int k = 2043;
 static const double kln2 = 0x1.62066151add8bp+10;
 
 /* exp(x)/2 for x >= log(DBL_MAX), slightly better than 0.5*exp(x/2)*exp(x/2) */
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 double __expo2(double x, double sign)
 {
 	double scale;

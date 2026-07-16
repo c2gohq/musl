@@ -4,7 +4,7 @@
  *         = 1 + 0.5*(exp(x)-1)*(exp(x)-1)/exp(x)
  *         = 1 + x*x/2 + o(x^4)
  */
-double cosh(double x)
+c2go_extern double cosh(double x)
 {
 	union {double f; uint64_t i;} u = {.f = x};
 	uint32_t w;

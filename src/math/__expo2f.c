@@ -5,6 +5,8 @@ static const int k = 235;
 static const float kln2 = 0x1.45c778p+7f;
 
 /* expf(x)/2 for x >= log(FLT_MAX), slightly better than 0.5f*expf(x/2)*expf(x/2) */
+/* c2go: KEEPCASE cross-TU (hidden in musl src/internal/libm.h; linkname decl in the shim). */
+c2go_extern_as(C2GO_KEEPCASE)
 float __expo2f(float x, float sign)
 {
 	float scale;

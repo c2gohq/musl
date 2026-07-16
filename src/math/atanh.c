@@ -1,7 +1,7 @@
 #include "libm.h"
 
 /* atanh(x) = log((1+x)/(1-x))/2 = log1p(2x/(1-x))/2 ~= x + x^3/3 + o(x^5) */
-double atanh(double x)
+c2go_extern double atanh(double x)
 {
 	union {double f; uint64_t i;} u = {.f = x};
 	unsigned e = u.i >> 52 & 0x7ff;

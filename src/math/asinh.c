@@ -1,7 +1,7 @@
 #include "libm.h"
 
 /* asinh(x) = sign(x)*log(|x|+sqrt(x*x+1)) ~= x - x^3/6 + o(x^5) */
-double asinh(double x)
+c2go_extern double asinh(double x)
 {
 	union {double f; uint64_t i;} u = {.f = x};
 	unsigned e = u.i >> 52 & 0x7ff;

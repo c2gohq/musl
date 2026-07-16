@@ -4,7 +4,7 @@
  *         = (exp(2*x) - 1)/(exp(2*x) - 1 + 2)
  *         = (1 - exp(-2*x))/(exp(-2*x) - 1 + 2)
  */
-double tanh(double x)
+c2go_extern double tanh(double x)
 {
 	union {double f; uint64_t i;} u = {.f = x};
 	uint32_t w;

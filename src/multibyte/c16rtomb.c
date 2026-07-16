@@ -8,7 +8,9 @@ c2go_extern size_t c16rtomb(char *restrict s, char16_t c16, mbstate_t *restrict 
 	static unsigned internal_state;
 	if (!ps) ps = (void *)&internal_state;
 	unsigned *x = (unsigned *)ps;
-	wchar_t wc;
+	/* c2go: full scalar, not wchar_t — a combined surrogate pair exceeds the
+	 * 16-bit wchar_t of the UTF-16 windows target. Identical on unix. */
+	unsigned wc;
 
 	if (!s) {
 		if (*x) goto ilseq;
@@ -27,7 +29,10 @@ c2go_extern size_t c16rtomb(char *restrict s, char16_t c16, mbstate_t *restrict 
 	} else {
 		wc = c16;
 	}
-	return wcrtomb(s, wc, 0);
+	/* c2go: encode via c32rtomb, whose folding windows block handles the
+	 * supplementary scalar a 16-bit wcrtomb cannot (on unix c32rtomb IS
+	 * wcrtomb — byte behaviour identical to musl's direct call). */
+	return c32rtomb(s, wc, 0);
 
 ilseq:
 	*x = 0;

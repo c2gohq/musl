@@ -38,7 +38,7 @@
 
 static const double invsqrtpi = 5.64189583547756279280e-01; /* 0x3FE20DD7, 0x50429B6D */
 
-double jn(int n, double x)
+c2go_extern double jn(int n, double x)
 {
 	uint32_t ix, lx;
 	int nm1, i, sign;
@@ -212,7 +212,7 @@ double jn(int n, double x)
 }
 
 
-double yn(int n, double x)
+c2go_extern double yn(int n, double x)
 {
 	uint32_t ix, lx, ib;
 	int nm1, sign, i;

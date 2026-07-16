@@ -5,7 +5,7 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <string.h>
-#include "stdio_impl.h"
+/* c2go: stdio_impl.h dropped — __getopt_msg arrives via <getopt.h>. */
 
 extern int __optpos, __optreset;
 
@@ -137,12 +137,12 @@ static int __getopt_long_core(int argc, char *const *argv, const char *optstring
 	return getopt(argc, argv, optstring);
 }
 
-int getopt_long(int argc, char *const *argv, const char *optstring, const struct option *longopts, int *idx)
+c2go_extern int getopt_long(int argc, char *const *argv, const char *optstring, const struct option *longopts, int *idx)
 {
 	return __getopt_long(argc, argv, optstring, longopts, idx, 0);
 }
 
-int getopt_long_only(int argc, char *const *argv, const char *optstring, const struct option *longopts, int *idx)
+c2go_extern int getopt_long_only(int argc, char *const *argv, const char *optstring, const struct option *longopts, int *idx)
 {
 	return __getopt_long(argc, argv, optstring, longopts, idx, 1);
 }

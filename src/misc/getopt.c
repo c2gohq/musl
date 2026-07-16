@@ -4,15 +4,26 @@
 #include <string.h>
 #include <limits.h>
 #include <stdlib.h>
-#include "locale_impl.h"
-#include "stdio_impl.h"
+#include <stdio.h>
+#include <c2go.h>
+/* c2go: locale_impl.h/stdio_impl.h dropped — no message catalogs (the
+ * LC_MESSAGES translation is the identity) and the FLOCK bracket becomes a
+ * no-op: each fputs/fwrite/putc self-locks its FILE; only the diagnostic's
+ * atomicity vs concurrent stderr writers is lost (cosmetic). The BSD optreset
+ * alias is a <getopt.h> #define onto __optreset (c2go doesn't lower
+ * weak_alias); __posix_getopt is omitted. */
+#define __lctrans_cur(msg) (msg)
+#define FLOCK(f) ((void)0)
+#define FUNLOCK(f) ((void)0)
 
 char *optarg;
 int optind=1, opterr=1, optopt, __optpos, __optreset=0;
 
 #define optpos __optpos
-weak_alias(__optreset, optreset);
 
+/* c2go: KEEPCASE cross-TU export (getopt_long.c calls it; the linkname
+ * declaration lives in <getopt.h>). */
+c2go_extern_as(C2GO_KEEPCASE)
 void __getopt_msg(const char *a, const char *b, const char *c, size_t l)
 {
 	FILE *f = stderr;
@@ -25,7 +36,7 @@ void __getopt_msg(const char *a, const char *b, const char *c, size_t l)
 	FUNLOCK(f);
 }
 
-int getopt(int argc, char * const argv[], const char *optstring)
+c2go_extern int getopt(int argc, char * const argv[], const char *optstring)
 {
 	int i;
 	wchar_t c, d;
@@ -102,5 +113,3 @@ int getopt(int argc, char * const argv[], const char *optstring)
 	}
 	return c;
 }
-
-weak_alias(getopt, __posix_getopt);

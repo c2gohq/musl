@@ -1,3 +1,6 @@
+/* c2go: unix-only (windows os.File.Fd() is a HANDLE, not a CRT fd — <ftw.h>
+ * #errors there); the TU compiles to empty on the windows target. */
+#if !defined(_WIN32)
 #include <ftw.h>
 #include <dirent.h>
 #include <fcntl.h>
@@ -6,7 +9,11 @@
 #include <unistd.h>
 #include <string.h>
 #include <limits.h>
-#include <pthread.h>
+#include <c2go.h>
+/* c2go: <pthread.h> dropped with the cancel-state bracket (no thread-
+ * cancellation model in this libc); musl's local `#define dirfd(d)` override
+ * dropped — dead code in this version (the walk uses open+fdopendir, never
+ * dirfd) and the real dirfd exists. */
 
 struct history
 {
@@ -16,9 +23,6 @@ struct history
 	int level;
 	int base;
 };
-
-#undef dirfd
-#define dirfd(d) (*(int *)d)
 
 static int do_nftw(char *path, int (*fn)(const char *, const struct stat *, int, struct FTW *), int fd_limit, int flags, struct history *h)
 {
@@ -120,9 +124,9 @@ static int do_nftw(char *path, int (*fn)(const char *, const struct stat *, int,
 	return 0;
 }
 
-int nftw(const char *path, int (*fn)(const char *, const struct stat *, int, struct FTW *), int fd_limit, int flags)
+c2go_extern int nftw(const char *path, int (*fn)(const char *, const struct stat *, int, struct FTW *), int fd_limit, int flags)
 {
-	int r, cs;
+	int r;
 	size_t l;
 	char pathbuf[PATH_MAX+1];
 
@@ -134,9 +138,9 @@ int nftw(const char *path, int (*fn)(const char *, const struct stat *, int, str
 		return -1;
 	}
 	memcpy(pathbuf, path, l+1);
-	
-	pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &cs);
+
 	r = do_nftw(pathbuf, fn, fd_limit, flags, NULL);
-	pthread_setcancelstate(cs, 0);
 	return r;
 }
+
+#endif /* !_WIN32 */

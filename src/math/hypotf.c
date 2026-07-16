@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdint.h>
 
-float hypotf(float x, float y)
+c2go_extern float hypotf(float x, float y)
 {
 	union {float f; uint32_t i;} ux = {x}, uy = {y}, ut;
 	float_t z;

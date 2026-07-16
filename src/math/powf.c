@@ -122,7 +122,7 @@ static inline int zeroinfnan(uint32_t ix)
 	return 2 * ix - 1 >= 2u * 0x7f800000 - 1;
 }
 
-float powf(float x, float y)
+c2go_extern float powf(float x, float y)
 {
 	uint32_t sign_bias = 0;
 	uint32_t ix, iy;

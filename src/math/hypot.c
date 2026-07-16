@@ -19,7 +19,7 @@ static void sq(double_t *hi, double_t *lo, double x)
 	*lo = xh*xh - *hi + 2*xh*xl + xl*xl;
 }
 
-double hypot(double x, double y)
+c2go_extern double hypot(double x, double y)
 {
 	union {double f; uint64_t i;} ux = {x}, uy = {y}, ut;
 	int ex, ey;

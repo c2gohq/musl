@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-float fabsf(float x)
+c2go_extern float fabsf(float x)
 {
 	float t;
 	__asm__ ("pcmpeqd %0, %0" : "=x"(t));          // t = ~0

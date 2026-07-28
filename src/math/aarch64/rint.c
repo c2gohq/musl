@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-double rint(double x)
+c2go_extern double rint(double x)
 {
 	__asm__ ("frintx %d0, %d1" : "=w"(x) : "w"(x));
 	return x;

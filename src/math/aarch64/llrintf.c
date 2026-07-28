@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-long long llrintf(float x)
+c2go_extern long long llrintf(float x)
 {
 	long long n;
 	__asm__ (

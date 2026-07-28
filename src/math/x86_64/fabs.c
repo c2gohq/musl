@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-double fabs(double x)
+c2go_extern double fabs(double x)
 {
 	double t;
 	__asm__ ("pcmpeqd %0, %0" : "=x"(t));          // t = ~0

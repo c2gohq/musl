@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-long lrintf(float x)
+c2go_extern long lrintf(float x)
 {
 	long r;
 	__asm__ ("cvtss2si %1, %0" : "=r"(r) : "x"(x));

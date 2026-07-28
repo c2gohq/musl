@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-long lrint(double x)
+c2go_extern long lrint(double x)
 {
 	long n;
 	__asm__ (

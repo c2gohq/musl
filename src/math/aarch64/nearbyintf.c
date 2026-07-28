@@ -1,6 +1,7 @@
 #include <math.h>
+#include <c2go.h>
 
-float nearbyintf(float x)
+c2go_extern float nearbyintf(float x)
 {
 	__asm__ ("frinti %s0, %s1" : "=w"(x) : "w"(x));
 	return x;

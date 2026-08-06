@@ -235,7 +235,7 @@ tre_tnfa_run_parallel(const tre_tnfa_t *tnfa, const void *string,
       + (rbytes + xbytes * tnfa->num_states) * 2 + tbytes + pbytes;
 
     /* Allocate the memory. */
-    buf = calloc(total_bytes, 1);
+    buf = xcalloc(total_bytes, 1);
     if (buf == NULL)
       return REG_ESPACE;
 

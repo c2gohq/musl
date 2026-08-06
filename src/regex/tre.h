@@ -39,6 +39,17 @@
 #define NDEBUG
 
 #define TRE_REGEX_T_FIELD __opaque
+#ifdef C2GO_MLIB_REGEX_BUILD
+/* TRE keeps its internal graph pointers deliberately unmanaged: lifetime is
+ * owned by the wrapper's arena, not by following this graph.  Only the public
+ * regex carrier is a managed publication edge and therefore needs an explicit
+ * address-space restoration (and write barrier) at the two publish sites. */
+#define TRE_REGEX_T_STORE(preg, value) \
+  ((preg)->TRE_REGEX_T_FIELD = (void *managed)(value))
+#else
+#define TRE_REGEX_T_STORE(preg, value) \
+  ((preg)->TRE_REGEX_T_FIELD = (void *)(value))
+#endif
 typedef int reg_errcode_t;
 
 typedef wchar_t tre_char_t;
@@ -188,9 +199,15 @@ typedef struct tre_mem_struct {
   void **provided;
 } *tre_mem_t;
 
+#ifdef C2GO_MLIB_REGEX_BUILD
+#define tre_mem_new_impl   __mlib_tre_mem_new_impl
+#define tre_mem_alloc_impl __mlib_tre_mem_alloc_impl
+#define tre_mem_destroy    __mlib_tre_mem_destroy
+#else
 #define tre_mem_new_impl   __tre_mem_new_impl
 #define tre_mem_alloc_impl __tre_mem_alloc_impl
 #define tre_mem_destroy    __tre_mem_destroy
+#endif
 
 /* c2go: cross-TU internals (tre-mem.c defines, regcomp.c/regexec.c call) —
  * linkname declarations here + c2go_extern_as(C2GO_KEEPCASE) on the
@@ -198,11 +215,19 @@ typedef struct tre_mem_struct {
  * default-unmanaged model and trip the c2go-lto name-collision guard). The
  * linkname targets are the post-#define real __-symbols; the namespacing
  * macros above rewrite these declarations to the same names. */
+#ifdef C2GO_MLIB_REGEX_BUILD
+tre_mem_t tre_mem_new_impl(int provided, void *provided_block)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.__mlib_tre_mem_new_impl", C2GO_GOABI0);
+void *tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_block,
+                                int zero, size_t size)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.__mlib_tre_mem_alloc_impl", C2GO_GOABI0);
+#else
 tre_mem_t tre_mem_new_impl(int provided, void *provided_block)
     c2go_linkname("github.com/c2gohq/c2go_libc.__tre_mem_new_impl", C2GO_GOABI0);
 void *tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_block,
                                 int zero, size_t size)
     c2go_linkname("github.com/c2gohq/c2go_libc.__tre_mem_alloc_impl", C2GO_GOABI0);
+#endif
 
 /* Returns a new memory allocator or NULL if out of memory. */
 #define tre_mem_new()  tre_mem_new_impl(0, NULL)
@@ -231,6 +256,28 @@ void *tre_mem_alloc_impl(tre_mem_t mem, int provided, void *provided_block,
 
 
 /* Frees the memory allocator and all memory allocated with it. */
+#ifdef C2GO_MLIB_REGEX_BUILD
+void tre_mem_destroy(tre_mem_t mem)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.__mlib_tre_mem_destroy", C2GO_GOABI0);
+
+/* The managed TRE instance uses the arena installed by its public wrapper.
+ * Blocks are no-scan GC allocations, but every base pointer is rooted directly
+ * by that arena, so TRE's internal pointers are navigation edges rather than
+ * GC ownership edges. */
+void *__mlib_regex_malloc(size_t)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.regexMalloc", C2GO_GOABI0);
+void *__mlib_regex_calloc(size_t, size_t)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.regexCalloc", C2GO_GOABI0);
+void *__mlib_regex_realloc(void *, size_t)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.regexRealloc", C2GO_GOABI0);
+void __mlib_regex_free(void *)
+    c2go_linkname("github.com/c2gohq/c2go_libc/mlib.regexFree", C2GO_GOABI0);
+
+#define xmalloc __mlib_regex_malloc
+#define xcalloc __mlib_regex_calloc
+#define xfree __mlib_regex_free
+#define xrealloc __mlib_regex_realloc
+#else
 void tre_mem_destroy(tre_mem_t mem)
     c2go_linkname("github.com/c2gohq/c2go_libc.__tre_mem_destroy", C2GO_GOABI0);
 
@@ -238,4 +285,4 @@ void tre_mem_destroy(tre_mem_t mem)
 #define xcalloc calloc
 #define xfree free
 #define xrealloc realloc
-
+#endif

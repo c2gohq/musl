@@ -2889,7 +2889,7 @@ regcomp(regex_t *restrict preg, const char *restrict regex, int cflags)
   xfree(counts);
   xfree(offs);
 
-  preg->TRE_REGEX_T_FIELD = (void *)tnfa;
+  TRE_REGEX_T_STORE(preg, tnfa);
   return REG_OK;
 
  error_exit:
@@ -2901,7 +2901,7 @@ regcomp(regex_t *restrict preg, const char *restrict regex, int cflags)
     xfree(counts);
   if (offs != NULL)
     xfree(offs);
-  preg->TRE_REGEX_T_FIELD = (void *)tnfa;
+  TRE_REGEX_T_STORE(preg, tnfa);
   regfree(preg);
   return errcode;
 }
